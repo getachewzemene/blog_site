@@ -15,11 +15,11 @@
    font-weight: bold;
 }
 #main-navigation a:hover, #main-navigation a:active, #main-navigation a:focus{
-   color: #1c63e6;
+   color: #e61c69;
 }
 
 #welcome{
-    background:  linear-gradient(to right top, #1c63e6, #1c63e6, #1c63e6, #1c63e6, #1c63e6, #1c63e6, #1c63e6, #1c63e6, #1c63e6, #1c63e6, #1c63e6, #1c63e6);
+    background:  linear-gradient(to right top, #243453, #0d5cee);
     padding: 6rem 12%;
 }
 #welcome header{
@@ -29,7 +29,7 @@
 }
 #welcome img{
     width: 10rem;
-    height: 10rem;
+    height: 13rem;
     object-fit: cover;
     object-position: top;
     border: 2px solid white;
