@@ -12,7 +12,25 @@ html{
 body{
     margin: 0;
 }
-
+#main-navigation{
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#main-navigation a{
+   text-decoration: none;
+   color: white;
+   font-weight: bold;
+}
+#main-navigation a:hover, #main-navigation a:active, #main-navigation a:focus{
+   color: #e61c69;
+}
 h1,h2,h3{
     font-family: 'Lato', 'sans-serif';
     font-weight: bold;

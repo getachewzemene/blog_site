@@ -4,13 +4,10 @@
  My Blog
 {% endblock  %}
 {% block css_files %}
+<link rel="stylesheet" href="{% static 'blog/post.css' %}">
 <link rel="stylesheet" href="{% static 'blog/index.css' %}">
 {% endblock  %}
 {% block content %}
-    <header id="main-navigation">
-        <h1><a href="">Blog</a></h1>
-        <nav><a href="">All Posts</a></nav>
-    </header>
     <section id="welcome">
       <header>
         <img src="{% static 'blog/images/getch.jpg' %}" alt="author image">
@@ -21,18 +18,7 @@
     <section id="latest-posts">
         <h2>My Latest Posts</h2>
         <ul>
-            <li>
-                <article class="post">
-                  <a href="">
-                    <img src="" alt="code image">
-                    <div class="post_content">
-                        <h3>Learn to Code</h3>
-                        <p>Learn to code is like playing foot ball. It needs training
-                             each and every day in order to master it.</p>
-                    </div>
-                </a>
-                </article>
-            </li>
+         {% include "blog/includes/post.html" %}
         </ul>
     </section>
     <section id="about">

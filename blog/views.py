@@ -7,9 +7,8 @@ def home(request):
     return render(request, 'blog/index.html')
 
 
-def posts(request):
-    # return render(request, 'blog/posts.html')
-    pass
+def all_posts(request):
+    return render(request, 'blog/all-posts.html')
 
 
 def post_detail(request, slug):
