@@ -4,12 +4,12 @@ from django.shortcuts import render
 
 posts = [
     {
-        "slug": "Blog Site Using Django",
+        "slug": "django-is-the-future-of-web-development",
         "image": "django_image.png",
         "author": "Getch",
         "date": date(2023, 1, 5),
         "title": "Django Course",
-        "excerpt": "This is a blog site using Django",
+        "excerpt": "Django is a batteries-included web framework that takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.",
         "content": """
                     lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. 
@@ -26,10 +26,10 @@ posts = [
                    """
     },
     {
-        "slug": "DevOps is the future of software development",
+        "slug": "DevOps-is-the-future-of-software-development-and-deployment",
         "image": "devops.jpg",
         "author": "Getch",
-        "date": date(2023, 1, 5),
+        "date": date(2023, 1, 2),
         "title": "DevOps Course",
         "excerpt": "Dev Ops is the future of software development and deployment",
         "content": """
@@ -48,12 +48,12 @@ posts = [
                    """
     },
     {
-        "slug": "Flutter is the future of mobile development",
+        "slug": "Flutter-is-the-future-of-mobile-development-and-Web-development",
         "image": "flutter_image.jpeg",
         "author": "Getch",
-        "date": date(2023, 1, 5),
+        "date": date(2023, 1, 10),
         "title": "Flutter Course",
-        "excerpt": "FLutter is the future of mobile development and Web development",
+        "excerpt": "Flutter is the future of mobile development and Web development",
         "content": """
                     lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. 
@@ -69,18 +69,24 @@ posts = [
                     Mauris vitae nisi at sem facilisis semper ac in est.                
                    """
     }
-
 ]
 
 # Create your views here.
 
 
 def home(request):
-    return render(request, 'blog/index.html')
+    sorted_posts = sorted(posts, key=lambda k: k['date'])
+    latest_posts = sorted_posts[-3:]
+
+    return render(request, 'blog/index.html', {
+        "posts": latest_posts,
+    })
 
 
 def all_posts(request):
-    return render(request, 'blog/all-posts.html')
+    return render(request, 'blog/all-posts.html', {
+        "posts": posts,
+    })
 
 
 def post_detail(request, slug):
