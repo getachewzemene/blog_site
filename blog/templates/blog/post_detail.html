@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Post Title
+{% endblock  %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/post-detail.css' %}">
+{% endblock  %}
+{% block content %}
+    <section id="summary">
+        <h2>Post Title</h2>
+        <article>
+            <img src="{% static 'blog/images/devops.jpg' %}" alt="post image">
+            <address>By Getch</address>
+            <div>
+                Last updated on <time>January 5th 2023 </time>
+            </div>
+        </article>
+    </section>
+    <main>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Cum minus omnis reprehenderit quisquam sint delectus iusto qui voluptates.
+             Praesentium vel illum, omnis iusto hic adipisci. Ad ea incidunt ipsum velit?
+        </p>
+    </main>
+{% endblock  %}
