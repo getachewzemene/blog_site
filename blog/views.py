@@ -1,5 +1,5 @@
 from datetime import date
-
+from django.http import Http404
 from django.shortcuts import render
 
 posts = [
@@ -70,7 +70,7 @@ posts = [
                    """
     }
 ]
-
+# response_not_found = render_to_string('404.html')
 # Create your views here.
 
 
@@ -78,16 +78,29 @@ def home(request):
     sorted_posts = sorted(posts, key=lambda k: k['date'])
     latest_posts = sorted_posts[-3:]
 
-    return render(request, 'blog/index.html', {
-        "posts": latest_posts,
-    })
+    try:
+        return render(request, 'blog/index.html', {
+            "posts": latest_posts,
+        })
+    except:
+        raise Http404("Page does not exist")
+        # return HttpResponseNotFound(response_not_found)
 
 
 def all_posts(request):
-    return render(request, 'blog/all-posts.html', {
-        "posts": posts,
-    })
+    try:
+        return render(request, 'blog/all-posts.html', {
+            "posts": posts,
+        })
+    except:
+        raise Http404("Page does not exist")
 
 
 def post_detail(request, slug):
-    return render(request, 'blog/post_detail.html')
+    identified_post = next(post for post in posts if post["slug"] == slug)
+    try:
+        return render(request, 'blog/post_detail.html', {
+            "post": identified_post,
+        })
+    except:
+        raise Http404("Page does not exist")
