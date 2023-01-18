@@ -32,6 +32,7 @@ def post_detail(request, slug):
     try:
         return render(request, 'blog/post_detail.html', {
             "post": identified_post,
+            "post_tags": identified_post.tags.all(),
         })
     except:
         raise Http404("Page does not exist")
