@@ -38,6 +38,15 @@ class PostDetailView(View):
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
 
+    def get_stored_post(self, request, post_id):
+        stored_posts = request.session.get('stored_posts')
+        stored_posts = request.session.get('stored_posts')
+        if stored_posts is not None:
+            is_stored_post = post_id in stored_posts
+        else:
+            is_stored_post = False
+        return is_stored_post
+
     def get(self, request, slug):
         post = get_object_or_404(Post, slug=slug)
         form = CommentForm()
@@ -46,6 +55,7 @@ class PostDetailView(View):
             'post_tags': post.tags.all(),
             'comment_form': form,
             'comments': post.comments.all().order_by('-created_at'),
+            'is_stored_post': self.get_stored_post(request, post.id),
         }
         return render(request, self.template_name, context)
 
@@ -62,6 +72,7 @@ class PostDetailView(View):
             'post_tags': post.tags.all(),
             'comment_form': form,
             'comments': post.comments.all().order_by('-created_at'),
+            'is_stored_post': self.get_stored_post(request, post.id),
         }
         return render(request, self.template_name, context)
 
@@ -89,5 +100,7 @@ class ReadLater(View):
         post_id = int(request.POST['post_id'])
         if post_id not in stored_posts:
             stored_posts.append(post_id)
-            request.session['stored_posts'] = stored_posts
+        else:
+            stored_posts.remove(post_id)
+        request.session['stored_posts'] = stored_posts
         return HttpResponseRedirect("/")
