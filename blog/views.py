@@ -1,8 +1,12 @@
 from datetime import date
 from django.http import Http404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
+from django.views import View
 from .models import Post
+from .forms import CommentForm
 
 
 class PostListView(ListView):
@@ -29,12 +33,32 @@ class AllPostListView(ListView):
         return data
 
 
-class PostDetailView(DetailView):
-    model = Post
+class PostDetailView(View):
+    # model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post_tags'] = self.object.tags.all()
-        return context
+    def get(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)
+        form = CommentForm()
+        context = {
+            'post': post,
+            'post_tags': post.tags.all(),
+            'comment_form': form,
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+            return HttpResponseRedirect(reverse('post-detail', args=[slug]))
+        context = {
+            'post': post,
+            'post_tags': post.tags.all(),
+            'comment_form': form,
+        }
+        return render(request, self.template_name, context)
