@@ -36,18 +36,18 @@
         {{post.content|linebreaks}}
     </main>
     <section id="comments">
+        <ul>
         {% for comment in comments %}
-            <article>
-                <header>
-                    <h4>{{comment.user_name}}</h4>
+            <li>
+                   <h4>{{comment.user_name}}</h4>
                     <time>{{comment.created_at|date:"d M Y"}}</time>
-                </header>
-                <p>{{comment.text|linebreaks}}</p>
-            </article>
+                     <p>{{comment.text|linebreaks}}</p>
+            </li>
         {% empty %}
             <p>No comments yet!</p>
         {% endfor %}
-
+        </ul>
+    </section>
     <section id="comment-form">
         <h3>Your Comment</h3>
         <form action = "{% url 'post-detail' post.slug %}" method = "POST">
