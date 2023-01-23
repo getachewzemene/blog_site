@@ -45,6 +45,7 @@ class PostDetailView(View):
             'post': post,
             'post_tags': post.tags.all(),
             'comment_form': form,
+            'comments': post.comments.all().order_by('-created_at'),
         }
         return render(request, self.template_name, context)
 
@@ -60,5 +61,6 @@ class PostDetailView(View):
             'post': post,
             'post_tags': post.tags.all(),
             'comment_form': form,
+            'comments': post.comments.all().order_by('-created_at'),
         }
         return render(request, self.template_name, context)
