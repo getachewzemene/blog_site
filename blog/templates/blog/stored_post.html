@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Stored posts
+{% endblock  %}
+{% block content %}
+{% if not has_posts %}
+    <h1>No Posts Stored Yet!</h1>
+{% endif%}
+<section>
+    <ul>
+        {% for post in posts %}
+         <li><a href="{% url 'post-detail' post.slug %}">{{post.title}}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock  %}
